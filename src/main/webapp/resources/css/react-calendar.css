@@ -1,0 +1,50 @@
+/* React-Class: Calendar */
+.calendarTable {
+	border-spacing: initial;
+	border-collapse: separate;
+	border-color: white;
+	table-layout: fixed;
+	width: 50%;
+}
+
+/* React-Class: CalendarCell */
+.calendarCell {
+	background-color: darkgray;
+	color: white;
+	border-width: 1px;
+	border-color: lightgray;
+	border-style: solid;
+}
+
+	.calendarCell.shadowCell {
+		background-color: lightgray;
+	}
+	.calendarCell:hover {
+		border-color: orange;
+		cursor: pointer;
+	}
+
+	.calendarCell .calendarCellBox {
+		min-height: 50px;
+	}
+
+		.calendarCell .calendarCellBox .date {
+			text-align: right;
+		}
+
+			.calendarCell .calendarCellBox .date:hover {
+				background-color: darkorange;
+			}
+
+			.calendarCell .calendarCellBox .entry:hover {
+				background-color: darkorange;
+			}
+
+				.calendarCell .calendarCellBox .entry span:hover {
+					font-weight: bold;
+				}
+
+				.calendarCell .calendarCellBox .entry span::before {
+					margin-left: 1px;
+					margin-right: 2px;
+				}
