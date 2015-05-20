@@ -21,7 +21,10 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
-        return "Got it!";
+        return "[\n" + 
+        		" {\"id\":0,\"title\":\"1984\",\"author\":\"George Orwel\"},\n" + 
+        		" {\"id\":1,\"title\":\"Die Stadt und die Sterne\",\"author\":\"Arthur C. Clarke\"}\n" + 
+        		" ]";
     }
 
     @POST

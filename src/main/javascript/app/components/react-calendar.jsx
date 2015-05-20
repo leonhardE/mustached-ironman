@@ -1,48 +1,82 @@
 var React = require('react');
 
-var weekDaysStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-  'Friday', 'Saturday'
-];
-var weekDaysShortStrings = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+module.exports = function(dataUrl) {
 
-/* UTIL */
-function validateObjectType(property, type) {
-  if (property instanceof type) {
-    return;
-  }
-  throw new Error('expected instance of ' + type.name + ', but type was ' +
-    typeof(property) + '.');
-}
+	var weekDaysStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+		'Friday', 'Saturday'
+	];
+	var weekDaysShortStrings = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
-/* VIEW */
-var CalendarEntry = React.createClass({
-  propTypes: {
-    //data: React.PropTypes.instanceOf(Entry)
-  },
-  render: function() {
-    return (
-      <div className="entry">
+	/* UTIL */
+	function validateObjectType(property, type) {
+		if (property instanceof type) {
+			return;
+		}
+		throw new Error('expected instance of ' + type.name + ', but type was ' +
+			typeof(property) + '.');
+	}
+
+	/* MODEL */
+	var Entry = Backbone.Model.extend({
+		defaults: {
+			date: new Date(),
+			summary: 'date'
+		},
+		parse: function(response, options) {
+			var time = Number.parseInt(response.date);
+			if (Number.isInteger(time)) {
+				response.date = new Date(time);
+			} else {
+				response.date = this.defaults.date;
+			}
+			return response;
+		},
+		toJSON: function(options) {
+			return {
+				date: this.get('date').getTime(),
+				summary: this.get('summary')
+			};
+		},
+		isSameDay: function(other) {
+			var date = this.get('date');
+			return date.getYear() === other.getYear() && date.getMonth() === other.getMonth() &&
+				date.getDate() === other.getDate();
+		}
+	});
+
+	var DateCollection = Backbone.Collection.extend({
+		model: Entry
+	});
+
+	/* VIEW */
+	var CalendarEntry = React.createClass({
+		propTypes: {
+			data: React.PropTypes.instanceOf(Entry)
+		},
+		render: function() {
+			return (
+				<div className="entry">
           <span className="fa fa-caret-right">
             {this.props.data.get('summary')}
           </span>
         </div>
-    );
-  }
-});
+			);
+		}
+	});
 
-var CalendarCell = React.createClass({
-  propTypes: {
-    onClick: React.PropTypes.func,
-    date: React.PropTypes.instanceOf(Date),
-    inFocussedMonth: React.PropTypes.bool,
-    data: React.PropTypes.array // arrayOf(Entry)
-  },
-  onClick: function(e) {
-    this.props.onClick(e.nativeEvent, this.props.date.toLocaleDateString());
-  },
-  render: function() {
-    return (
-      <td onClick={this.onClick}
+	var CalendarCell = React.createClass({
+		propTypes: {
+			onClick: React.PropTypes.func,
+			date: React.PropTypes.instanceOf(Date),
+			inFocussedMonth: React.PropTypes.bool,
+			data: React.PropTypes.array // arrayOf(Entry)
+		},
+		onClick: function(e) {
+			this.props.onClick(e.nativeEvent, this.props.date.toLocaleDateString());
+		},
+		render: function() {
+			return (
+				<td onClick={this.onClick}
             className={"calendarCell" + (this.props.inFocussedMonth?"":" shadowCell")}>
           <div className="calendarCellBox">
             <div className="date">
@@ -55,49 +89,49 @@ var CalendarCell = React.createClass({
             }
           </div>
         </td>
-    );
-  }
-});
+			);
+		}
+	});
 
-var ColHead = React.createClass({
-  render: function() {
-    return (
-      <th>
+	var ColHead = React.createClass({
+		render: function() {
+			return (
+				<th>
           {this.props.day}
         </th>
-    );
-  }
-});
+			);
+		}
+	});
 
-var CalendarMonth = React.createClass({
-  propTypes: {
-    year: React.PropTypes.number,
-    month: React.PropTypes.number,
-    onClick: React.PropTypes.func,
-    weekDays: React.PropTypes.arrayOf(React.PropTypes.string),
-    //data: React.PropTypes.instanceOf(DateCollection)
-  },
-  getInitialState: function() {
-    this.firstDateOfMonth = new Date(this.props.year, this.props.month, 1);
-    var firstDayOfMonth = this.firstDateOfMonth.getDay();
+	var CalendarMonth = React.createClass({
+		propTypes: {
+			year: React.PropTypes.number,
+			month: React.PropTypes.number,
+			onClick: React.PropTypes.func,
+			weekDays: React.PropTypes.arrayOf(React.PropTypes.string),
+			data: React.PropTypes.instanceOf(DateCollection)
+		},
+		getInitialState: function() {
+			this.firstDateOfMonth = new Date(this.props.year, this.props.month, 1);
+			var firstDayOfMonth = this.firstDateOfMonth.getDay();
 
-    this.dayOffset = (firstDayOfMonth - 1) % 7;
-    this.rowIndices = [1, 2, 3, 4, 5, 6];
-    return {
-      data: this.props.data
-    };
-  },
-  componentWillMount: function() {
-    this.props.data.on('change add', function() {
-      this.forceUpdate();
-    }.bind(this));
-  },
-  componentWillUnmount: function() {
-    this.props.data.off('change');
-  },
-  render: function() {
-    return (
-      <div>
+			this.dayOffset = (firstDayOfMonth - 1) % 7;
+			this.rowIndices = [1, 2, 3, 4, 5, 6];
+			return {
+				data: this.props.data
+			};
+		},
+		componentWillMount: function() {
+			this.props.data.on('change add', function() {
+				this.forceUpdate();
+			}.bind(this));
+		},
+		componentWillUnmount: function() {
+			this.props.data.off('change');
+		},
+		render: function() {
+			return (
+				<div>
           <table className="calendarTable">
             <thead>
               <tr>
@@ -139,9 +173,14 @@ var CalendarMonth = React.createClass({
             </tbody>
           </table>
         </div>
-    );
-  }
-});
+			);
+		}
+	});
 
-module.exports.CalendarMonth = CalendarMonth;
-module.exports.weekDaysStrings = weekDaysStrings;
+	return {
+		CalendarMonth: CalendarMonth,
+		weekDaysStrings: weekDaysStrings,
+		Entry: Entry,
+		DateCollection: DateCollection
+	};
+};

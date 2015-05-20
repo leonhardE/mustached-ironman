@@ -19,6 +19,7 @@ public class MyResourceTest {
 	 * Test method for {@link com.ar.webapp.calendar.MyResource#getIt()}.
 	 */
 	@Test
+	@Ignore
 	public final void testGetIt() {
 		MyResource mr = new MyResource();
 		String actual = mr.getIt();
