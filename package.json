@@ -1,0 +1,21 @@
+{
+  "name": "react-calendar",
+  "version": "0.0.0",
+  "description": "Calendar powered by React.js, backed by backbone.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "leonhardE",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "devDependencies": {
+    "browserify": "^10.2.1",
+    "gulp": "^3.8.11",
+    "gulp-debug": "^2.0.1",
+    "gulp-uglify": "^1.2.0",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

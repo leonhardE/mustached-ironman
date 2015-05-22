@@ -15,6 +15,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.eclipse.persistence.jaxb.MarshallerProperties;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -36,6 +37,7 @@ public class CalendarResourceTest
 	 * @throws JsonParseException
 	 */
 	@Test
+	@Ignore
 	public final void testGetData() throws JAXBException {
 		final JAXBContext context = JAXBContext.newInstance(MyJaxbBean.class);
 
