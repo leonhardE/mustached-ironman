@@ -2,7 +2,7 @@ var React = require('react');
 var App = require('./components/react-calendar.jsx')();
 
 var dateCollection = new App.DateCollection();
-dateCollection.url = '/webapi/data/jsons';
+dateCollection.url = 'webapi/data/jsons';
 
 dateCollection.fetch({
 	success: function(coll) {
@@ -40,7 +40,7 @@ dateCollection.fetch({
 $('#read-btn').on('click',
 	function() {
 		var dates = new App.DateCollection();
-		dates.url = '/webapi/data/jsons';
+		dates.url = 'webapi/data/jsons';
 		dates.fetch({
 			success: function(dates, res, opt) {
 				dates.each(function(date) {

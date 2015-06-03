@@ -14,7 +14,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -46,16 +45,14 @@ public class CalendarResourceTest
 		final StringWriter writer = new StringWriter();
 		// this is where we convert the object to XML
 		Marshaller marshaller = context.createMarshaller();
-		marshaller.setProperty(MarshallerProperties.MEDIA_TYPE,
-				"application/json");
+		marshaller.setProperty("eclipselink.media-type", "application/json");
 		marshaller.marshal(addr, writer);
 
 		System.out.println(writer.toString());
 
 		// this is where we convert the XML to object
 		Unmarshaller unmarshaller = context.createUnmarshaller();
-		unmarshaller.setProperty(MarshallerProperties.MEDIA_TYPE,
-				"application/json");
+		unmarshaller.setProperty("eclipselink.media-type", "application/json");
 		final MyJaxbBean fromXML = (MyJaxbBean) unmarshaller
 				.unmarshal(new StringReader(writer.toString()));
 
