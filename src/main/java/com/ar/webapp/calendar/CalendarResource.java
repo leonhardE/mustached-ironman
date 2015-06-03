@@ -45,8 +45,8 @@ public class CalendarResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String createData(Entry entry, @Context Request request,
 			@Context HttpServletResponse response) {
-		throw new MyApplicationException("foo");
-//		return "{entry: \"" + entry.toString() + "\"}";
+		// throw new MyApplicationException("foo");
+		return "{entry: \"" + entry.toString() + "\"}";
 	}
 
 	@GET
