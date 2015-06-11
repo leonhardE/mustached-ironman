@@ -34,10 +34,13 @@ public class CalendarResourceTest {
 	 */
 	@Test
 	public final void testGetBookByTitle() {
-		Response response = given().contentType(ContentType.TEXT).expect()
-				.contentType(ContentType.TEXT)
-				.statusCode(Status.OK.getStatusCode()).when()
-				.get("http://localhost:8080/calendar-webapp/webapi/data/text");
+		Response response = given()
+								.contentType(ContentType.TEXT)
+							.expect()
+								.contentType(ContentType.TEXT)
+								.statusCode(Status.OK.getStatusCode())
+							.when()
+								.get("/calendar-webapp/webapi/data/text");
 
 		String responseText = response.asString();
 

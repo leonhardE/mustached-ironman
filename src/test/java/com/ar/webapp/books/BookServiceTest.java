@@ -35,7 +35,7 @@ public class BookServiceTest {
                                 .statusCode(Status.OK.getStatusCode())
                                 .log().all()
                             .when()
-                                .post("http://localhost:8080/calendar-webapp/webapi/book/by_title");
+                                .post("/calendar-webapp/webapi/book/by_title");
 
 		Book book = response.as(Book.class);
 
