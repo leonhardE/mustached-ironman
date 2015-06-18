@@ -1,5 +1,10 @@
 var React = require('react');
 
+var mui = require('material-ui');
+var RaisedButton = mui.RaisedButton;
+var ThemeManager = new mui.Styles.ThemeManager();
+var Colors = mui.Styles.Colors;
+
 module.exports = function(dataUrl) {
 
 	var weekDaysStrings = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -104,6 +109,17 @@ module.exports = function(dataUrl) {
 	});
 
 	var CalendarMonth = React.createClass({
+
+		  childContextTypes: {
+		    muiTheme: React.PropTypes.object
+		  },
+
+		  getChildContext: function() {
+		    return {
+		      muiTheme: ThemeManager.getCurrentTheme()
+		    };
+		  },
+
 		propTypes: {
 			year: React.PropTypes.number,
 			month: React.PropTypes.number,
@@ -172,6 +188,7 @@ module.exports = function(dataUrl) {
               }
             </tbody>
           </table>
+	      <RaisedButton label="Default" primary={true} />
         </div>
 			);
 		}
