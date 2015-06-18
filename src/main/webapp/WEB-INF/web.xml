@@ -20,14 +20,9 @@
 		<param-value>/webapi</param-value>
 	</context-param>
 	<!-- if you are using Spring, Seam or EJB as your component model, remove 
-		the ResourceMethodSecurityInterceptor
-	<context-param>
-		<param-name>resteasy.resource.method-interceptors</param-name>
-		<param-value>
-         org.jboss.resteasy.core.ResourceMethodSecurityInterceptor
-      </param-value>
-	</context-param>
-		 -->
+		the ResourceMethodSecurityInterceptor <context-param> <param-name>resteasy.resource.method-interceptors</param-name> 
+		<param-value> org.jboss.resteasy.core.ResourceMethodSecurityInterceptor </param-value> 
+		</context-param> -->
 
 	<listener>
 		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
@@ -37,9 +32,17 @@
 		<servlet-name>Resteasy</servlet-name>
 		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>Resteasy</servlet-name>
 		<url-pattern>/webapi/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RESTEasy-JSAPI</servlet-name>
+		<servlet-class>org.jboss.resteasy.jsapi.JSAPIServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RESTEasy-JSAPI</servlet-name>
+		<url-pattern>/js/*</url-pattern>
 	</servlet-mapping>
 </web-app>

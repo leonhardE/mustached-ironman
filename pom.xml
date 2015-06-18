@@ -48,12 +48,12 @@
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson-core-version}</version>
 		</dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>1.9.13</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.9.13</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Import REST Assured -->
 		<dependency>
@@ -110,6 +110,11 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-multipart-provider</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jsapi</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
