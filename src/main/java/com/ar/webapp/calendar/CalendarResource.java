@@ -5,6 +5,7 @@ package com.ar.webapp.calendar;
 
 import java.util.Date;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,11 +23,14 @@ import javax.ws.rs.core.Request;
 @Path("data")
 public class CalendarResource {
 
+	@Inject
+	Bean bean;
+
 	@GET
 	@Path(value = "text")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getDataAsString() {
-		return "Foo";
+		return bean.speak();
 	}
 
 	@GET
