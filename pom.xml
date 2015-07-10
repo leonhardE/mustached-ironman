@@ -72,6 +72,16 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Import alternative Test Framework TestNG -->
+		<!-- Earlier version - like the version 6.1.1 for testng managed in org.wildfly.bom:jboss-javaee-7.0-with-tools 
+			- cause a SocketException -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.4</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
